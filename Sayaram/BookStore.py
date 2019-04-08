@@ -1,8 +1,3 @@
-class ValueTooSmallError:
-    """Raised when the input value is too small"""
-    pass
-
-
 class Book:
     def __init__(self):
         self.book = {}
@@ -38,11 +33,6 @@ class Book:
                 self.bookList.pop(index)
         except Exception as err:
             print(err)
-
-
-
-
-
 
 
 

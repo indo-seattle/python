@@ -28,10 +28,8 @@
 
 list_of_books = []
 
-
 def add_a_book(name, price, ISBN):
     list_of_books.append({'name': name, 'price': price, 'ISBN': ISBN})
-
 
 can_continue = True
 
@@ -55,13 +53,11 @@ while can_continue == True:
 
 print(list_of_books)
 
-
 def delete_a_book(ISBN):
     for each_book in list_of_books:
         if ISBN in each_book.values():
             if each_book in list_of_books:
                 list_of_books.remove(each_book)
-
 
 delete_a_book('1')
 #

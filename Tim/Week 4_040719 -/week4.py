@@ -42,10 +42,6 @@ while can_continue == True:
 
     add_a_book(book_name, book_price, book_isbn)
     quest_continue = input("Do you want to continue (Y/N): ")
-    # if quest_continue == 'N':
-    #     can_continue = False
-    # elif quest_continue == 'Y':
-    #     can_continue = True
     if quest_continue == 'N':
         can_continue = False
     elif quest_continue == 'Y':

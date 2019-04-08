@@ -33,6 +33,3 @@ class Book:
                 self.bookList.pop(index)
         except Exception as err:
             print(err)
-
-
-

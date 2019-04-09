@@ -1,31 +1,3 @@
-# list_book = [{'Name':'Lord of the rings - 1', 'Price': '$10.99', 'ISBN': '01'}]
-# list_book.append({'Name':'Lord of the rings - 2', 'Price': '$20.99', 'ISBN': '02'})
-# list_book.append({'Name':'Lord of the rings - 3', 'Price': '$30.99', 'ISBN': '03'})
-#
-# for eachbook in list_book:
-#     for eachitem in eachbook:
-#         print(eachitem, eachbook[eachitem])
-
-# list_of_books = []
-# def add_a_book(name, price, ISBN):
-#
-#
-#     list_of_books.append({'name': book_name, 'book_price': book_price, 'book_isbn': book_isbn})
-#
-# for eachbook in list_book:
-#     for eachitem in eachbook:
-#         print(eachitem, eachbook[eachitem])
-#
-# add_a_book(book_name, book_price, book_isbn)
-
-### Add and delete book
-# list_of_books = [{'name': 'book1', 'price': '$1', 'ISBN': '1'}]
-#
-# def add_a_book(name, price, ISBN):
-#     list_of_books.append({'name': name, 'price': price, 'ISBN': ISBN})
-#
-# add_a_book('The ISCF', '098', '123')
-
 list_of_books = []
 
 def add_a_book(name, price, ISBN):

@@ -211,6 +211,9 @@ def get_book_menu(book_choice):  ### Choice determines the output is a book or l
             print('2) Get a book with price')
             print('3) Get a book with ISBN')
             print('4) Get a book with Name and Price')
+            print('5) Get a book with Name and ISBN')
+            print('6) Get a book with Price and ISBN')
+            print('7) Get a book with Name, Price and ISBN')
             print('Q) Quit menu')
             get_a_book_choice = input("\n\nPlease select a number (1 - 4) or Q to quit: ")
             is_get_a_book = False
@@ -222,6 +225,9 @@ def get_book_menu(book_choice):  ### Choice determines the output is a book or l
             print('2) Get all books with same price')
             print('3) Get all books with same ISBN')
             print('4) Get all books with same Name and Price')
+            print('5) Get all books with Name and ISBN')
+            print('6) Get all books with Price and ISBN')
+            print('7) Get all books with Name, Price and ISBN')
             print('Q) Quit menu')
             get_all_books_choice = input("\n\nPlease select a number (1 - 4) or Q to quit: ")
             is_get_all_books = False

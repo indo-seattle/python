@@ -320,33 +320,3 @@ def get_all_books(_name, _price, _isbn):
 # print(get_all_books("The Life and Legacy", "1.99", ""))
 # print(list_of_books)
 
-
-def get_all_books_v2(_name, _price, _isbn):
-    # if you get isbn, don't need rest
-    if _isbn:
-        return get_a_book_by_isbn(_isbn)
-    elif _name != "" and _price != "":
-        try:
-            if number_of_books_by_name_and_price(_name, _price) >= 1:
-                return get_all_books_by_name_and_price(_name, _price)
-        except ValueError:
-            print("No book with the same name and price exists")
-    elif _name:
-        if number_of_books_by_name(_name) >= 1:
-            return get_all_books_by_name(_name)
-        else:
-            raise Exception("No book with the same name exists")
-    elif _price:
-        if number_of_books_by_price(_price) >= 1:
-            return get_all_books_by_price(_price)
-        else:
-            raise Exception("No book with the same price exists")
-    else:
-        raise Exception("Sorry ...")
-
-
-# test get_all_books function
-# print(get_all_books("The Life and Legacy", "", ""))
-# print(get_all_books("", "1.99", ""))
-# print(get_all_books_v2("The Life and Legacy", "1.990", ""))
-# print(list_of_books)

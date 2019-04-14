@@ -181,104 +181,51 @@ def get_all_books(name, price, ISBN):
     try:
         print("\nname :{}, price : {}, ISBN :{} ".format(name,price,ISBN))
         if ISBN != '0000':  ## Loop that has valid ISBN provided
-            got_book = [item for item in list_of_books if item['ISBN'] == ISBN]
-            if len(got_book) >= 1:
+            got_books = [item for item in list_of_books if item['ISBN'] == ISBN]
+            if len(got_books) >= 1:
                 if name == 'dummy' and price != '0.00':  ### ISBN, price given
-                    if got_book[0]['price'] == price:
-                        book = got_book
+                    got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['price'] == price]
+                    if len(got_books_combo) > 0:
+                        books = got_books_combo
                     else:
-                        raise Exception("There is no book matching given info ISBN:{}, price:{}".format(ISBN, price))
+                        raise Exception ("There is no book matching given info")
                 elif name != 'dummy' and price == '0.00':  ### ISBN, name given
-                    if got_book[0]['name'] == name:
-                        book = got_book
+                    got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['name'] == name]
+                    if len(got_books_combo) > 0:
+                        books = got_books_combo
                     else:
-                        raise Exception("There is no book matching given info ISBN:{}, name:{}".format(ISBN, name))
+                        raise Exception("There is no book matching given info")
                 elif name != 'dummy' and price != '0.00':  ### ISBN, name, price given
-                    if got_book[0]['price'] == price and got_book[0]['name'] == name:
-                        book = got_book
-                    else:
-                        raise Exception(
-                            "There is no book matching given info ISBN:{}, name:{}, price:{} ".format(ISBN, name,
-                                                                                                      price))
+                    got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['name'] == name and item['price'] == price]
+                    if len(got_books_combo) > 0:
+                        books = got_books_combo
                 else:
-                    book = got_book
+                    books = got_books
             else:
                 raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name, price, ISBN))
+
         elif name != 'dummy':
-            got_book = [item for item in list_of_books if item['name'] == name]
-            if len(got_book) > 1:
-                raise Exception(" Multiple books exist with same name: {}".format(name))
-            elif len(got_book) == 1:
+            got_books = [item for item in list_of_books if item['name'] == name]
+            if len(got_books) >= 1:
                 if price != '0.00':  ### Name, price given
-                    if got_book[0]['price'] == price:
-                        book = got_book
+                    got_books_combo = [item for item in list_of_books if item['price'] == price and item['name'] == name]
+                    if len(got_books_combo) > 0:
+                        books = got_books_combo
                     else:
-                        raise Exception("There is no book matching given info name:{}, price:{}".format(name, price))
+                        raise Exception("There is no book matching given info")
                 else:  #### Only name given
-                    book = got_book
+                    books = got_books
             else:
-                raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name, price, ISBN))
+                raise Exception("There is no book matching given info name:{}, price:{}".format(name, price))
         elif price != '0.00':
-            got_book = [item for item in list_of_books if item['price'] == price]
-            if len(got_book) > 1:
-                raise Exception(" Multiple books exist with same price: {}".format(price))
-            elif len(got_book) == 1:
-                book = got_book
-        else:
-            raise Exception("There is no book matching given info name:{}, price:{}, ISBN:{}".format(name, price, ISBN))
-    except Exception as err:
-        print(err)
-    return book
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if ISBN != '0000':                                   ## Loop that has valid ISBN provided
-            got_book = [item for item in list_of_books if item['ISBN'] == ISBN]
-            if len(got_book) >= 1:
-                books = got_book
+            got_books = [item for item in list_of_books if item['price'] == price]
+            if len(got_books) >= 1:
+                books = got_books
             else:
-                raise Exception ("No book exists with given ISBN", ISBN)
-        elif price != '0.00':                                   ## Loop that has valid ISBN provided
-            got_book = [item for item in list_of_books if item['price'] == price]
-            if len(got_book) >= 1:
-                books = got_book
-            else:
-                raise Exception ("No book exists with given price", price)
-        elif name != 'dummy':                                   ## Loop that has valid ISBN provided
-            got_book = [item for item in list_of_books if item['name'] == name]
-            if len(got_book) >= 1:
-                books = got_book
-            else:
-                raise Exception ("No book exists with given name", name)
-        elif name != 'dummy' and price != '0.00':
-            got_book = [item for item in list_of_books if item['name'] == name and item['price'] == price]
-            if len(got_book) >= 1:
-                books = got_book
-            else:
-                raise Exception ("No book exists with given name and price!")
-        else:
-            raise Exception ("Insufficient information provided. Need at least one param to get a book!")
+                raise Exception("There is no book matching given info name:{}, price:{}, ISBN:{}".format(name, price, ISBN))
     except Exception as err:
         print(err)
     return books
-
-
 
 
 

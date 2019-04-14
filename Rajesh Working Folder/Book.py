@@ -196,7 +196,7 @@ def update_a_book(_name, _price, _isbn):
     # if you get only name and price, not isbn - update price info for that book
     elif _name != "" and _price != "" and _isbn == "":
         if is_book_exists_by_name(_name):
-            if number_of_books_by_name() == 1:
+            if number_of_books_by_name(_name) == 1:
                 update_a_book_price_by_name(_name, _price)
     # if you get only price and isbn, not name
     elif _name == "" and _price != "" and _isbn != "":

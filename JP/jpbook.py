@@ -74,35 +74,41 @@ def remove_a_book(ISBN):
 def update_a_book(name, price,ISBN):
     try:
         print("\nname :{}, price : {}, ISBN :{} ".format(name,price,ISBN))
-        if ISBN != '0000':                                   ## Loop that has valid ISBN provided
+        if ISBN != '':                                   ## Loop that has valid ISBN provided
             update_book = [item for item in list_of_books if item['ISBN'] == ISBN]
             print("Update_book", update_book)
             if len(update_book) > 1:
                 raise Exception(" Multiple books exist with same ISBN")
             elif len(update_book) == 1:
-                if name == 'dummy' and price != '0.00':     ### ISBN, price given
+                if name == '' and price != '':  ### ISBN, price given
                     update_book[0]['price'] = price
-                elif name != 'dummy' and price == '0.00':   ### ISBN, Name given
+                elif name != '' and price == '':  ### ISBN, name given
                     update_book[0]['name'] = name
-                else:                                       ### ISBN, Name and price given
+                elif name != '' and price != '':  ### ISBN, name, price given
                     update_book[0]['name'] = name
                     update_book[0]['price'] = price
+                else:
+                    raise Exception("Insufficient information provided. Need atleast two params for update operation!")
             else:
-                raise Exception ("No book exists with given information")
-        elif name != 'dummy' and price != '0.00':
+                raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name, price, ISBN))
+
+        elif name != '':
             update_book = [item for item in list_of_books if item['name'] == name]
-            print("Update_book", update_book)
             if len(update_book) > 1:
-                raise Exception (" Multiple names exist with same name")
+                raise Exception(" Multiple books exist with same name: {}".format(name))
             elif len(update_book) == 1:
-                update_book[0]['price'] = price
+                if price != '':  ### Name, price given
+                    update_book[0]['price'] = price
+                else:
+                    raise Exception("Insufficient information provided. Need atleast two params for update operation!")
             else:
-                raise Exception ("No book exists with given name and price!")
+                raise Exception("There is no book matching given info name:{}, price:{}".format(name, price))
         else:
-            raise Exception ("Insufficient information provided. Need atleast two params for update operation!")
+            raise Exception("Insufficient information provided. Need atleast two params for update operation!")
     except Exception as err:
         print(err)
     return list_of_books
+
 
 # get_a_book(_name, _price, _ISBN): return one book item.
 # User input: You may not data for all three parameters always. Deal with what you get.
@@ -115,22 +121,22 @@ def get_a_book(name, price, ISBN):
     book = []
     try:
         print("\nname :{}, price : {}, ISBN :{} ".format(name,price,ISBN))
-        if ISBN != '0000':                                   ## Loop that has valid ISBN provided
+        if ISBN != '':                                   ## Loop that has valid ISBN provided
             got_book = [item for item in list_of_books if item['ISBN'] == ISBN]
             if len(got_book) > 1:
                 raise Exception(" Multiple books exist with same ISBN: {}".format(ISBN))
             elif len(got_book) == 1:
-                if name == 'dummy' and price != '0.00':     ### ISBN, price given
+                if name == '' and price != '':     ### ISBN, price given
                     if got_book[0]['price'] == price:
                         book = got_book
                     else:
                         raise Exception ("There is no book matching given info ISBN:{}, price:{}".format(ISBN,price))
-                elif name != 'dummy' and price == '0.00':     ### ISBN, name given
+                elif name != '' and price == '':     ### ISBN, name given
                     if got_book[0]['name'] == name:
                         book = got_book
                     else:
                         raise Exception ("There is no book matching given info ISBN:{}, name:{}".format(ISBN,name))
-                elif name != 'dummy' and price != '0.00':     ### ISBN, name, price given
+                elif name != '' and price != '':     ### ISBN, name, price given
                     if got_book[0]['price'] == price and got_book[0]['name'] == name:
                         book = got_book
                     else:
@@ -139,12 +145,12 @@ def get_a_book(name, price, ISBN):
                     book = got_book
             else:
                 raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name,price,ISBN))
-        elif name != 'dummy':
+        elif name != '':
             got_book = [item for item in list_of_books if item['name'] == name]
             if len(got_book) > 1:
                 raise Exception(" Multiple books exist with same name: {}".format(name))
             elif len(got_book) == 1:
-                if price != '0.00':        ### Name, price given
+                if price != '':        ### Name, price given
                     if got_book[0]['price'] == price:
                         book = got_book
                     else:
@@ -153,7 +159,7 @@ def get_a_book(name, price, ISBN):
                     book = got_book
             else:
                 raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name, price, ISBN))
-        elif price != '0.00':
+        elif price != '':
             got_book = [item for item in list_of_books if item['price'] == price]
             if len(got_book) > 1:
                     raise Exception(" Multiple books exist with same price: {}".format(price))
@@ -180,22 +186,22 @@ def get_all_books(name, price, ISBN):
     books = []
     try:
         print("\nname :{}, price : {}, ISBN :{} ".format(name,price,ISBN))
-        if ISBN != '0000':  ## Loop that has valid ISBN provided
+        if ISBN != '':  ## Loop that has valid ISBN provided
             got_books = [item for item in list_of_books if item['ISBN'] == ISBN]
             if len(got_books) >= 1:
-                if name == 'dummy' and price != '0.00':  ### ISBN, price given
+                if name == '' and price != '':  ### ISBN, price given
                     got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['price'] == price]
                     if len(got_books_combo) > 0:
                         books = got_books_combo
                     else:
                         raise Exception ("There is no book matching given info")
-                elif name != 'dummy' and price == '0.00':  ### ISBN, name given
+                elif name != '' and price == '':  ### ISBN, name given
                     got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['name'] == name]
                     if len(got_books_combo) > 0:
                         books = got_books_combo
                     else:
                         raise Exception("There is no book matching given info")
-                elif name != 'dummy' and price != '0.00':  ### ISBN, name, price given
+                elif name != '' and price != '':  ### ISBN, name, price given
                     got_books_combo = [item for item in list_of_books if item['ISBN'] == ISBN and item['name'] == name and item['price'] == price]
                     if len(got_books_combo) > 0:
                         books = got_books_combo
@@ -204,10 +210,10 @@ def get_all_books(name, price, ISBN):
             else:
                 raise Exception("No book exists with given Info name:{}, price:{}, ISBN: {}".format(name, price, ISBN))
 
-        elif name != 'dummy':
+        elif name != '':
             got_books = [item for item in list_of_books if item['name'] == name]
             if len(got_books) >= 1:
-                if price != '0.00':  ### Name, price given
+                if price != '':  ### Name, price given
                     got_books_combo = [item for item in list_of_books if item['price'] == price and item['name'] == name]
                     if len(got_books_combo) > 0:
                         books = got_books_combo
@@ -217,7 +223,7 @@ def get_all_books(name, price, ISBN):
                     books = got_books
             else:
                 raise Exception("There is no book matching given info name:{}, price:{}".format(name, price))
-        elif price != '0.00':
+        elif price != '':
             got_books = [item for item in list_of_books if item['price'] == price]
             if len(got_books) >= 1:
                 books = got_books
@@ -267,42 +273,24 @@ while go_to_menu():
         pp(list_of_books)
     elif menu_choice == '3':
         # update book with various data input from user
-        bk_name = input("Enter book name or press enter for default value (dummy) :")
-        if bk_name == '':
-            bk_name = 'dummy'
-        print(bk_name)
-        bk_price = input("Enter Price of the book or press enter for default value($0.00) : ")
-        if bk_price == '':
-            bk_price = '0.00'
-        bk_isbn = input("Enter ISBN code of the book or press enter for default value (0000): ")
-        if bk_isbn == '':
-            bk_isbn = '0000'
+        bk_name = input("Enter book name or press enter if you do not want to provide :")
+        # print(bk_name)
+        bk_price = input("Enter Price of the book or press enter if you do not want to provide : ")
+        bk_isbn = input("Enter ISBN code of the book or press enter if you do not want to provide : ")
         update_a_book(bk_name,bk_price,bk_isbn)
-        print("List of books after updating :")
+        print("List of books after updating Operation :")
         pp(list_of_books)
     elif menu_choice == '4':
         bk_name = input("Enter book name or press enter if you do not want to enter :")
-        if bk_name == '':
-            bk_name = 'dummy'
         bk_price = input("Enter Price of the book or press enter if you do not want to enter : ")
-        if bk_price == '':
-            bk_price = '0.00'
         bk_isbn = input("Enter ISBN code of the book or press enter if you do not want to enter: ")
-        if bk_isbn == '':
-            bk_isbn = '0000'
         result = get_a_book(name=bk_name, price=bk_price, ISBN=bk_isbn)
         print("\nHere is the book found matching reqs")
         pp(result)
     elif menu_choice == '5':
         bk_name = input("Enter book name or press enter if you do not want to enter :")
-        if bk_name == '':
-            bk_name = 'dummy'
         bk_price = input("Enter Price of the book or press enter if you do not want to enter : ")
-        if bk_price == '':
-            bk_price = '0.00'
         bk_isbn = input("Enter ISBN code of the book or press enter if you do not want to enter: ")
-        if bk_isbn == '':
-            bk_isbn = '0000'
         result = get_all_books(name=bk_name, price=bk_price, ISBN=bk_isbn)
         print("\nHere is the list of books found matching reqs")
         pp(result)

@@ -24,23 +24,34 @@ list_of_books = [{
 # Errors: Cannot add this book, a book already exists with the ISBN.
 # Allow: Multiple books can be with the same name.
 def add_a_book(_name, _price, _isbn):
-    book_exists = False
-    for each_book in list_of_books:
-        if _isbn in each_book.values():
-            raise Exception("Book already exists")
-
-    list_of_books.append({
-        'name': _name,
-        'price': _price,
-        'ISBN': _isbn
+    try:
+        for each_book in list_of_books:
+            if _isbn in each_book.values():
+                raise ValueError("Book already exists")
+    except ValueError as ve:
+        print(ve)
+    else:
+        list_of_books.append({
+            'name': _name,
+            'price': _price,
+            'ISBN': _isbn
     })
 
+
+# Test add_a_book
+# print(list_of_books)
+# add_a_book('The ISCF Passion', '0.98', '111115')
+# add_a_book('The ISCF Passion', '0.98', '111116')
+# print(list_of_books)
+# add_a_book('The ISCF Passion', '0.98', '111111')
 
 # helper function to check if book exists by name
 def is_book_exists_by_name(_name):
     for each_book in list_of_books:
         if _name in each_book.values():
             return True
+        else:
+            raise ValueError("No book exists with that name")
     return False
 
 
@@ -49,6 +60,8 @@ def is_book_exists_by_isbn(_isbn):
     for each_book in list_of_books:
         if _isbn in each_book.values():
             return True
+        else:
+            raise ValueError("No book exists with that isbn")
     return False
 
 
@@ -157,18 +170,14 @@ def number_of_books_by_name_and_price(_name, _price):
 
 # to delete a book by isbn
 def delete_a_book_by_isbn(_isbn):
-    if is_book_exists_by_isbn(_isbn):
-        remove_a_book_by_isbn(_isbn)
-    else:
-        raise Exception("No book exists with the ISBN", _isbn)
+    try:
+        if is_book_exists_by_isbn(_isbn):
+            remove_a_book_by_isbn(_isbn)
+        else:
+            raise ValueError("No book exists with that isbn")
+    except ValueError as ve:
+        print(ve)
 
-
-# Test add_a_book
-# print(list_of_books)
-# add_a_book('The ISCF Passion', '0.98', '111115')
-# add_a_book('The ISCF Passion', '0.98', '111116')
-# print(list_of_books)
-# add_a_book('The ISCF Passion', '0.98', '111111')
 
 # test delete a book by isbn
 # print(list_of_books)
@@ -187,32 +196,46 @@ def delete_a_book_by_isbn(_isbn):
 # Validations: If user sends only name or price, do not update anything.
 #               Return Error saying you need at two paramenters input to perform any operation
 def update_a_book(_name, _price, _isbn):
-    # getting all three values
-    if _name != "" and _price != "" and _isbn != "":
-        if is_book_exists_by_isbn(_isbn):
-            remove_a_book_by_isbn(_isbn)
-            list_of_books.append({"name": _name, "price": _price, "isbn": _isbn})
-        pass
-    # if you get only name and price, not isbn - update price info for that book
-    elif _name != "" and _price != "" and _isbn == "":
-        if is_book_exists_by_name(_name):
-            if number_of_books_by_name(_name) == 1:
-                update_a_book_price_by_name(_name, _price)
-    # if you get only price and isbn, not name
-    elif _name == "" and _price != "" and _isbn != "":
-        if is_book_exists_by_isbn(_isbn):
-            update_a_book_price_by_isbn(_isbn, _price)
-        pass
-    else:
-        raise Exception("Insufficient parameters")
+    try:
+        # getting all three values
+        if _name != "" and _price != "" and _isbn != "":
+            try:
+                if is_book_exists_by_isbn(_isbn):
+                    remove_a_book_by_isbn(_isbn)
+                    list_of_books.append({"name": _name, "price": _price, "isbn": _isbn})
+                else:
+                    raise ValueError("No book exists with that name, price, and isbn")
+            except ValueError as ve:
+                print(ve)
+        # if you get only name and price, not isbn - update price info for that book
+        elif _name != "" and _price != "" and _isbn == "":
+            try:
+                if is_book_exists_by_name(_name):
+                    if number_of_books_by_name(_name) == 1:
+                        update_a_book_price_by_name(_name, _price)
+            except ValueError as ve:
+                print(ve)
+        # if you get only price and isbn, not name
+        elif _name == "" and _price != "" and _isbn != "":
+            try:
+                if is_book_exists_by_isbn(_isbn):
+                    update_a_book_price_by_isbn(_isbn, _price)
+                else:
+                    raise ValueError("No book exists with that price and isbn")
+            except ValueError as ve:
+                print(ve)
+        else:
+            raise ValueError("Need at least two parameters out of (name, price, isbn) to update a book")
+    except ValueError as ve:
+        print(ve)
 
 
 # test update_a_book
-# update_a_book("The New book","9.99","111112")
-# update_a_book("The New book","10.99","")
+# update_a_book("The New book","9.99","119112")
+update_a_book("The Bible","90.99","")
 # update_a_book("","11.99","111112")
 # update_a_book("","11.99","")
-# print(list_of_books)
+print(list_of_books)
 
 
 # get_a_book(_name, _price, _ISBN): return one book item.
@@ -297,3 +320,33 @@ def get_all_books(_name, _price, _isbn):
 # print(get_all_books("The Life and Legacy", "1.99", ""))
 # print(list_of_books)
 
+
+def get_all_books_v2(_name, _price, _isbn):
+    # if you get isbn, don't need rest
+    if _isbn:
+        return get_a_book_by_isbn(_isbn)
+    elif _name != "" and _price != "":
+        try:
+            if number_of_books_by_name_and_price(_name, _price) >= 1:
+                return get_all_books_by_name_and_price(_name, _price)
+        except ValueError:
+            print("No book with the same name and price exists")
+    elif _name:
+        if number_of_books_by_name(_name) >= 1:
+            return get_all_books_by_name(_name)
+        else:
+            raise Exception("No book with the same name exists")
+    elif _price:
+        if number_of_books_by_price(_price) >= 1:
+            return get_all_books_by_price(_price)
+        else:
+            raise Exception("No book with the same price exists")
+    else:
+        raise Exception("Sorry ...")
+
+
+# test get_all_books function
+# print(get_all_books("The Life and Legacy", "", ""))
+# print(get_all_books("", "1.99", ""))
+# print(get_all_books_v2("The Life and Legacy", "1.990", ""))
+# print(list_of_books)

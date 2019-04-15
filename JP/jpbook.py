@@ -40,7 +40,10 @@ def add_a_book(name,price,ISBN):
     try:
         isbn_values =[]
         for book in list_of_books:
-            isbn_values.append(book.get('ISBN'))
+            if name != '' and price != '' and ISBN != '':
+                isbn_values.append(book.get('ISBN'))
+            else:
+                raise Exception ("One or more fields are empty, Can't add teh book")
             # print(isbn_values)
         if ISBN in isbn_values:
             raise Exception ("Cannot add this book, a book already exists with the ISBN")

@@ -20,7 +20,6 @@ def get_all_country_names():
     result = ''
     for _country in countries_population:
         result += _country
-
     return result
 
 
@@ -31,8 +30,9 @@ def get_all_country_names():
 # like this: http://127.0.0.1:5000/Population?country=India
 @app.route('/Population')
 def get_population_by_country():
+    # retrieve country information from URL
     _country_name = flask.request.args.get('country')
-    # print(_country_name)
+    # get country population information
     return countries_population.get(_country_name)
 
 

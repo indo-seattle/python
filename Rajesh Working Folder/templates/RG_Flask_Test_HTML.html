@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+   <body>
+      <h1>On Call Schedule</h1>
+      <table border = 1>
+            <tr>
+               <th> Name </th>
+               <th> Start date </th>
+               <th> End date </th>
+            </tr>
+          {% for each_candidate_data in results %}
+            <tr>
+                {% for each_item in each_candidate_data.values() %}
+                    <td> {{ each_item }} </td>
+                {% endfor %}
+            </tr>
+         {% endfor %}
+      </table>
+   </body>
+</html>

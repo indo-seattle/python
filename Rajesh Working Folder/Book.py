@@ -40,7 +40,7 @@ def add_a_book(_name, _price, _isbn):
 
 # Test add_a_book
 # print(list_of_books)
-# add_a_book('The ISCF Passion', '0.98', '111115')
+add_a_book('The ISCF Passion', '0.98', '111115')
 # add_a_book('The ISCF Passion', '0.98', '111116')
 # print(list_of_books)
 # add_a_book('The ISCF Passion', '0.98', '111111')

@@ -1,11 +1,11 @@
-class Book:
+class Books:
     def __init__(self):
         self.book = {}
         self.bookList = []
 
-    def addBook(self, name, isbn, price):
+    def add_a_book(self, name, isbn, price):
         try:
-            if self._find(name, isbn) == None:
+            if self._find(name=name, isbn=isbn) == None:
                 self.book.update(Name = name)
                 self.book.update(ISBN = isbn)
                 self.book.update(Price = price)
@@ -24,9 +24,9 @@ class Book:
                 return None
         return None
 
-    def delBook(self, name=None, isbn=None):
+    def remove_a_book(self, name=None, isbn=None):
         try:
-            index = self._find(name, isbn)
+            index = self._find(name=name, isbn=isbn)
             if index == None:
                 raise Exception("Book Name or ISBN does not exists")
             else:

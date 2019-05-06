@@ -1,0 +1,42 @@
+# POP Quiz 1
+
+1. What is Programming Lanugage and why do we need it?
+
+
+2. What is Python and how is it different from other computer languages such as C or C++
+
+
+3. What is IDE?
+
+4. Describe on what you know of PyCharm.
+
+
+5. What is Git? And how does it help in development?
+
+6. What are the basic types in Python?
+
+7. What do you think python will print for the following;
+
+>>> print(10)
+
+>>> print(0o10)
+
+>>> print(0x10)
+
+>>> print(0b10)
+
+>>> print(.4e7)
+
+8. what is immutable? What happens if you attempt this?
+
+s = "Josh"
+print(s[0])
+s[0] = 'C'
+
+8. What's the difference between a list, tuple, dictionary and identify some simple examples.
+
+9. Represent first 10 digits in a list, a tuple and dictionary. In dictionary, represent the number as key and the corresponding english word as value.
+
+10. Write a for loop and print from the above list and corresponding english word for each number.
+
+11. Write a while loop and print from the above dictionary and print number and corresponding english word.

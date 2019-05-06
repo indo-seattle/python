@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+=======
   <component name="ChangeListManager">
     <list default="true" id="dd84b399-d706-43ec-abcb-f86c1b6cdb7d" name="Default Changelist" comment="Test">
       <change afterPath="$PROJECT_DIR$/Suresh/Week3Exercise1.py" afterDir="false" />
@@ -268,6 +276,7 @@
         </settings>
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
+>>>>>>> b6260ad52667ad990ffed9986024d99f93a71a3d
         <settings>
           <splitter-proportions>
             <option name="proportions">

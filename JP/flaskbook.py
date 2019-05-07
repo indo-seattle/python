@@ -59,65 +59,57 @@ capital_dic = {
 }
 
 #
-# @app.route('/')
-# def home():
-#     return "<h1>Praise the Lord! Welcome to the Web API Exercise!! </h1>"
+@app.route('/')
+def home():
+    return "<h1>Praise the Lord! Welcome to the Web API Exercise!! </h1>"
 
 
 # 1. Create a Web API function that can return capital if we give state name.
 # http://127.0.0.1:5000/Population?state=Utah
 # Answer: web page displays Salt Lake City
 
-
-# @app.route('/Population')
-# def get_capital_by_state():
-#     _state_name = flask.request.args.get('state')
-#     return "<h1> Capital of {} state  is:  <span style='color: blue'>{}</span> </h1>".format(_state_name, capital_dic.get(_state_name))
+def get_capital_by_state():
+    _state_name = request.args.get('state')
+    return "<h1> Capital of {} state  is:  <span style='color: blue'>{}</span> </h1>".format(_state_name, capital_dic.get(_state_name))
 #
 # 2. Create a Web API function that can return state name if we give capital name.
 # http://127.0.0.1:5000/Population?capital=Richmond
 # Answer: web page displays Virginia
 
-
-# @app.route('/Population')
-# def get_state_by_capital():
-#     _state_name = ''
-#     _capital_name = flask.request.args.get('capital')
-#     for state in capital_dic:
-#         if capital_dic[state] == _capital_name:
-#             _state_name = state
-#     return "<h1> State name for the capital {} is : <span style='color: blue'>{}</span> </h1>".format(_capital_name,_state_name)
-
+def get_state_by_capital():
+    _state_name = ''
+    _capital_name = request.args.get('capital')
+    for state in capital_dic:
+        if capital_dic[state] == _capital_name:
+            _state_name = state
+    return "<h1> State name for the capital {} is : <span style='color: blue'>{}</span> </h1>".format(_capital_name,_state_name)
+#
 # 3. Create a Web API function that can return state names that starts with South
 # http://127.0.0.1:5000/Population?statesnamestartswith=South
 # Answer: web page displays South Carolina South Dakoda
 
-
-# @app.route('/Population')
-# def get_states_name_starts_with():
-#     _states_name_starts_with = flask.request.args.get('statesnamestartswith')
-#     _state_name = ''
-#     for state in capital_dic:
-#         if state.startswith(_states_name_starts_with):
-#             _state_name += state
-#             _state_name += ' '
-#     return "<h1> State(s) that start(s) with {} is/are: <span style='color: blue'>{}</span> </h1>".format(_states_name_starts_with,_state_name)
+def get_states_name_starts_with():
+    _states_name_starts_with = request.args.get('statesnamestartswith')
+    _state_name = ''
+    for state in capital_dic:
+        if state.startswith(_states_name_starts_with):
+            _state_name += state
+            _state_name += ' '
+    return "<h1> State(s) that start(s) with {} is/are: <span style='color: blue'>{}</span> </h1>".format(_states_name_starts_with,_state_name)
 
 
 # 4. Create a Web API function that can return capital names that starts with Little
 # http://127.0.0.1:5000/Population?capitalnamestartswith=Little
 # Answer: web page displays Little Rock
 
-
-# @app.route('/Population')
-# def get_capital_starts_with():
-#     _capital_name_starts_with = flask.request.args.get('capitalnamestartswith')
-#     _capital_name = ''
-#     for state in capital_dic:
-#         if capital_dic[state].startswith(_capital_name_starts_with):
-#             _capital_name += capital_dic[state]
-#             _capital_name += ' , '
-#     return "<h1> Capital(s) that start(s) with  {} is/are : <span style='color: blue'>{}</span> </h1>".format(_capital_name_starts_with, _capital_name)
+def get_capital_starts_with():
+    _capital_name_starts_with = request.args.get('capitalnamestartswith')
+    _capital_name = ''
+    for state in capital_dic:
+        if capital_dic[state].startswith(_capital_name_starts_with):
+            _capital_name += capital_dic[state]
+            _capital_name += '  '
+    return "<h1> Capital(s) that start(s) with  {} is/are : <span style='color: blue'>{}</span> </h1>".format(_capital_name_starts_with, _capital_name)
 
 
 
@@ -125,22 +117,49 @@ capital_dic = {
 # http://127.0.0.1:5000/Population?firsttencapitals
 # Montgomery , Juneau , Phoenix , Little Rock , Sacramento , Denver , Hartford , Dover , Tallahassee , Atlanta
 
-# @app.route('/Population')
-# def get_first_ten_capitals():
-#     _f10cap = flask.request.args.get('firsttencapitals')
-#     _capitals = ''
-#     _capitals_list = []
-#     for state, capital in capital_dic.items():
-#         _capitals_list.append(capital)
-#     for i in range(0, 10):
-#         _capitals += _capitals_list[i]
-#         _capitals += ' , '
-#     return "<h1> First 10 Capitals in the dictionary are : <span style='color: blue'>{}</span> </h1>".format( _capitals)
+def get_first_ten_capitals():
+    _f10cap = request.args.get('firsttencapitals')
+    _capitals = ''
+    _capitals_list = []
+    for state, capital in capital_dic.items():
+        _capitals_list.append(capital)
+    for i in range(0, 10):
+        _capitals += _capitals_list[i]
+        _capitals += '  '
+    return "<h1> First 10 Capitals in the dictionary are : <span style='color: blue'>{}</span> </h1>".format( _capitals)
 
 
-# @app.errorhandler(404)
-# def page_not_found(error):
-#     return "<h1><span style='color: red'> This Page does NOT exist! </span> </h1>", 404
+@app.errorhandler(404)
+def page_not_found(error):
+    return "<h1><span style='color: red'> Invalid Request! </span> </h1>"
+
+
+
+
+#### Main Population loop
+
+@app.route('/Population')
+def main_population():
+    _state_name = request.args.get('state')
+    _capital_name = request.args.get('capital')
+    _states_name_starts_with = request.args.get('statesnamestartswith')
+    _capital_name_starts_with = request.args.get('capitalnamestartswith')
+    _f10cap = request.args.get('firsttencapitals')
+    result = ""
+    if _state_name is not None and _state_name!= "":
+        result = get_capital_by_state()
+    elif _capital_name is not None and _capital_name != "":
+        result = get_state_by_capital()
+    elif _states_name_starts_with is not None and _states_name_starts_with != "":
+        result = get_states_name_starts_with()
+    elif _capital_name_starts_with is not None and _capital_name_starts_with != "":
+        result = get_capital_starts_with()
+    elif _f10cap is not None:
+        result = get_first_ten_capitals()
+    else:
+        result = page_not_found(404)
+    return result
+
 
 
 ####################  Web API Excercise using the form method
@@ -269,4 +288,4 @@ countries_population = {"India": "1.3", "China": "1.4", "USA": "0.32", "Indonesi
     # return "The Population(s) updated successfully!"
 
 
-app.run()
+app.run(debug=True)

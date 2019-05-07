@@ -1,19 +1,21 @@
-# from flask import Flask
-# from flask import request
-import flask
+from flask import Flask
+from flask import request
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 print(__name__)
 
 countries_population = {'India': '1.3', 'China': '1.4', 'USA': '0.32', 'Indonesia': '0.26'}
 
 
-@app.route('/countrypopulation')
-def get_population():
-    _country_name = flask.request.args.get('countryname')
+# GET /population - retrieves population for a given country
+@app.route('/population')
+def get_population(country):
+    _country_name = request.args.get('countryname')
+    print(country)
     return countries_population.get(_country_name)
 
 
+# GET /countries - retrieves all countries
 @app.route('/countries')
 def get_countries():
     _country_names = 'The countries are: '
@@ -23,4 +25,27 @@ def get_countries():
     return (_country_names)
 
 
-app.run(port=5000)
+# POST /countries - Add a new country
+# {'Australia': '0.4'}
+@app.route('/countries', methods=['POST'])
+def add_country():
+    request_data = request.get_json()
+    print(request_data)
+    countries_population.update(request_data)
+    print(countries_population)
+    return 'Added successfully'
+
+
+# POST /population - Update population of a country
+@app.route('/population', methods=['POST'])
+def update_population():
+    request_data = request.get_json()
+    print(request_data['India'])
+    for each_item in request_data:
+        countries_population[each_item] = request_data[each_item]
+    print(countries_population)
+    return 'Added successfully'
+
+
+app.run(port=5001)
+

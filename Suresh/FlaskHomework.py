@@ -112,8 +112,20 @@ def getcapitalstart():
 #Create a Web API function that can return first 10 capital names
 #http://127.0.0.1:5000/Population?firsttencapitals
 #Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware Florida Georgia
-
-
+@app.route('/listofcapitals')
+def getcapitallist():
+    _list = []
+    _statename = []
+    for i in capital_dic:
+        _statename.append(i)
+    _index = 0
+    _start_with = flask.request.args.get('capitalnamestartwith')
+    while (_index < int(_start_with)):
+        _state = _statename[_index]
+        _capital = capital_dic[_state]
+        list.append(_capital)
+        _index += 1
+    return _list
 
 
 app.run(port=5000)

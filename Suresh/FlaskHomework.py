@@ -113,17 +113,7 @@ def getcapitalstart():
 #http://127.0.0.1:5000/Population?firsttencapitals
 #Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware Florida Georgia
 
-@app.route('/listofcapitals')
-def getcapitallist():
-    _start_with = flask.request.args.get('listofcapitalsneeded')
-    _list = ''
-    count = 1
-    while (count <= _start_with):
-        for _state_name in capital_dic:
-            count += 1
-        _list+=capital_dic[_state_name]
 
-    return _list
 
 
 app.run(port=5000)

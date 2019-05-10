@@ -26,12 +26,13 @@ def get_countries():
 
 
 # POST /countries - Add a new country
+# {'Australia': '0.4'}
 @app.route('/countries', methods=['POST'])
 def add_country():
     request_data = request.get_json()
-    # print(request_data)
+    print(request_data)
     countries_population.update(request_data)
-    # print(countries_population)
+    print(countries_population)
     return 'Added successfully'
 
 
@@ -39,12 +40,12 @@ def add_country():
 @app.route('/population', methods=['POST'])
 def update_population():
     request_data = request.get_json()
-    # print(request_data['India'])
+    print(request_data['India'])
     for each_item in request_data:
         countries_population[each_item] = request_data[each_item]
-    # print(countries_population)
+    print(countries_population)
     return 'Added successfully'
 
 
-app.run(port=5000)
+app.run(port=5001)
 

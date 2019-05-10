@@ -162,5 +162,16 @@ def get_state_details():
     return return_msg
 
 
+# @app.route('/countries') is a decorator for function: get_all_country_names();
+# The decorator helps your give a Web URL Extension,
+# in this case get_all_country_names() can be called from URL:http://127.0.0.1:5000/Countries
+@app.route('/countries', methods=['POST'])
+def add_country():
+
+    request_data = request.get_json()
+    countries_population.update(request_data)
+    print(countries_population)
+    return "added successfully"
+
 app.run(port=5000)
 

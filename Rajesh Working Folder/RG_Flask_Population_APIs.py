@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import Response
 
 app = Flask(__name__)
 print(__name__)
@@ -29,11 +30,15 @@ def get_countries():
 # {'Australia': '0.4'}
 @app.route('/countries', methods=['POST'])
 def add_country():
-    request_data = request.get_json()
-    print(request_data)
-    countries_population.update(request_data)
-    print(countries_population)
-    return 'Added successfully'
+    if request.headers['Content-Type'] == 'application/json':
+        request_data = request.get_json()
+        print(request_data)
+        countries_population.update(request_data)
+        print(countries_population)
+        response = Response("Added successfully", 201, mimetype='application/json')
+    else:
+        response = Response("Invalid country object passed in request", 400, mimetype='application/json')
+    return response
 
 
 # POST /population - Update population of a country
@@ -42,7 +47,8 @@ def update_population():
     request_data = request.get_json()
     print(request_data['India'])
     for each_item in request_data:
-        countries_population[each_item] = request_data[each_item]
+        if each_item in countries_population.keys():
+            countries_population[each_item] = request_data[each_item]
     print(countries_population)
     return 'Added successfully'
 

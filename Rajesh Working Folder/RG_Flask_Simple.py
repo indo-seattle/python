@@ -1,7 +1,6 @@
 import flask
 
 app = flask.Flask(__name__)
-print(__name__)
 
 
 @app.route('/hello')

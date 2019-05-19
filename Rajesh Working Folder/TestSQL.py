@@ -11,13 +11,13 @@ mycursor = mydb.cursor()
 
 # mycursor.execute("SELECT * FROM customers")
 
-mycursor.execute("SELECT * FROM states_capitals")
+mycursor.execute("SELECT capital FROM states_capitals where state = 'Washington'")
 
 #
-myresult = mycursor.fetchall()
-
+myresult = mycursor.fetchone()
+print(myresult[0])
 for x in myresult:
-  print(x[0], x[1])
+  print(x)
 
 # sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
 # val = ("John", "Highway 21")

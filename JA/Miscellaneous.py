@@ -41,11 +41,25 @@ def calculateBars(n,m):
         return bars + calculateBars(bars + left_over_wrappers, m)
 
 
+# Complete the serviceLane function below.
+width = [2, 3, 1, 2, 3, 2, 3, 3]
+cases  = [[0, 3], [4, 6], [6, 7], [3, 5], [0, 7]]
+def serviceLane(n, cases):
+
+    widths = []
+    for count in range(0,len(cases)):
+        widths.append(width[cases[count][0]:cases[count][1]+1])
+
+    my_list = list(map(min,widths))
+    print(my_list)
+
+
 if __name__=='__main__':
 
     '''myStr = "I'm super smart but only thing is that I always take things for granted"
-    print(vowelCount(myStr))'''
-    print(chocolateFeast(15,3,2))
-    print(chocolateFeast(10, 2, 5))
-    print(chocolateFeast(12, 4, 4))
-    print(chocolateFeast(6, 2, 2))
+    # print(vowelCount(myStr))'''
+    # print(chocolateFeast(15,3,2))
+    # print(chocolateFeast(10, 2, 5))
+    # print(chocolateFeast(12, 4, 4))
+    # print(chocolateFeast(6, 2, 2))
+    serviceLane(8,cases)

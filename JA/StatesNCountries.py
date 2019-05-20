@@ -1,5 +1,5 @@
 # This is what we worked in the class.
-from flask import Flask, request, abort
+from flask import Flask, request, Response, abort
 
 capital_dic={
     'Alabama': 'Montgomery',
@@ -153,14 +153,25 @@ def get_state_details():
                 break
     else:
         return_msg = "Invalid Query"
-
+    response = Response()
     if "Invalid Query" == return_msg:
-        abort(400, return_msg)
+        response = Response(return_msg,400,mimetype-'text/html')
     elif _not_found is True:
-        abort(404,return_msg)
+        response = Response(return_msg,404,mimetype="text/html")
 
-    return return_msg
+    return response
 
+
+# @app.route('/countries') is a decorator for function: get_all_country_names();
+# The decorator helps your give a Web URL Extension,
+# in this case get_all_country_names() can be called from URL:http://127.0.0.1:5000/Countries
+@app.route('/countries', methods=['POST'])
+def add_country():
+
+    request_data = request.get_json()
+    countries_population.update(request_data)
+    print(countries_population)
+    return "added successfully"
 
 app.run(port=5000)
 

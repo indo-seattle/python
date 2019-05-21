@@ -50,5 +50,4 @@ def modifyData():
         response = Response("Invalid state object passed in request", 400, mimetype='application/json')
     return response
 
-
 app.run(port = 5000)

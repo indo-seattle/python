@@ -60,20 +60,41 @@ capitals_data={
     'Wyoming': 'Cheyenne'
 }
 
+#
+# mydb = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   passwd="1234",
+#   database = "mydatabase"
+# )
+
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="1234",
-  database = "mydatabase"
+  host="ec2-34-222-119-7.us-west-2.compute.amazonaws.com",
+  user="rajesh",
+  passwd="iscfuser",
+  database = "IscfPython"
 )
+
+# # GET /population - returns all capitals in one string
+# @app.route('/capitals', methods=['GET'])
+# def get_capitals():
+#     str_capitals = ''
+#     for each_state in capitals_data:
+#         str_capitals += ' ' + capitals_data[each_state]
+#     return str_capitals
+
 
 # GET /population - returns all capitals in one string
 @app.route('/capitals', methods=['GET'])
 def get_capitals():
     str_capitals = ''
-    for each_state in capitals_data:
-        str_capitals += ' ' + capitals_data[each_state]
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT capital FROM states_capitals")
+    myresult = mycursor.fetchall()
+    for row in myresult:
+        print(row)
+        str_capitals += ' ' + row[0]
     return str_capitals
 
 
@@ -96,18 +117,35 @@ def get_capital_for_state():
 
 # POST /state - Add a new state
 # {'Telangana': 'Hyderabad'}
+# @app.route('/state', methods=['POST'])
+# def add_state():
+#     if request.headers['Content-Type'] == 'application/json':
+#         request_data = request.get_json()
+#         print(request_data)
+#         capitals_data.update(request_data)
+#         print(capitals_data)
+#         response = Response("Added successfully", 201, mimetype='application/json')
+#     else:
+#         response = Response("Invalid state object passed in request", 400, mimetype='application/json')
+#     return response
+
+
 @app.route('/state', methods=['POST'])
 def add_state():
     if request.headers['Content-Type'] == 'application/json':
         request_data = request.get_json()
         print(request_data)
-        capitals_data.update(request_data)
-        print(capitals_data)
+        sql = "INSERT INTO states_capitals (state, capital) VALUES (%s, %s)"
+        val = tuple(request_data.items())
+        # val = ("John", "Highway 21")
+        print(val)
+        mycursor = mydb.cursor()
+        mycursor.executemany(sql, val)
+        mydb.commit()
         response = Response("Added successfully", 201, mimetype='application/json')
     else:
         response = Response("Invalid state object passed in request", 400, mimetype='application/json')
     return response
-
 
 # # PUT /state - Add a new state
 # # {'Telangana': 'Hyderabad1'}

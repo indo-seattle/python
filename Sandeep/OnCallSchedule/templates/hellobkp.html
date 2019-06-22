@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+   <body>
+      <h1>On Call Schedule</h1>
+      <form name="update_oncall_schedule" action="http://127.0.0.1:5000/update_on_call" method="post" >
+          <table border = 1>
+                <tr>
+                   <th> Name </th>
+                   <th> Start date </th>
+                   <th> End date </th>
+                </tr>
+              {% for each_candidate_data in results %}
+                <tr>
+                        {% for key, each_item in each_candidate_data.items() %}
+                        <td> <input type="text" name={{ key }} value={{ each_item }}> </td>
+                    {% endfor %}
+                </tr>
+             {% endfor %}
+          </table>
+          <INPUT TYPE="SUBMIT" VALUE="Update">
+      </form>
+   </body>
+</html>

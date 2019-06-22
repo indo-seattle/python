@@ -10,3 +10,5 @@ for i in mydict1:
             mydict3[i]=mydict1[i]+mydict2[j]
 
 print(mydict3)
+
+print(mydict3.keys(6000))
